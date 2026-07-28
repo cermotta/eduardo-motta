@@ -18,6 +18,10 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        html {
+            /* ADICIONADO AQUI: Ativa a animação de rolagem suave para todo o site */
+            scroll-behavior: smooth;
+        }
         body {
             color: var(--text-color);
             background-color: var(--white);
@@ -231,7 +235,7 @@
 
     <header>
         <div class="nav-container">
-            <a href="#" class="logo">Eduardo Motta</a>
+            <a href="#inicio" class="logo">Eduardo Motta</a>
             <ul class="nav-links">
                 <li><a href="#inicio">Início</a></li>
                 <li><a href="#servicos">Serviços</a></li>
@@ -290,7 +294,6 @@
         </div>
     </section>
 
-    <!-- SEÇÃO DE AGENDAMENTO -->
     <section id="agendar">
         <div class="container">
             <h2 class="section-title">Faça o seu Agendamento</h2>
@@ -384,7 +387,6 @@
             const data = document.getElementById('data').value;
             const horario = document.getElementById('horario').value;
 
-            // Formata a data de AAAA-MM-DD para DD/MM/AAAA
             const dataFormatada = data.split('-').reverse().join('/');
 
             const texto = `Olá Eduardo! Gostaria de confirmar um agendamento:\n\n*Cliente:* ${nome}\n*Serviço:* ${servico}\n*Data:* ${dataFormatada}\n*Horário:* ${horario}`;
