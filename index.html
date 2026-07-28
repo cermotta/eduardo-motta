@@ -97,6 +97,9 @@
             text-decoration: none;
             font-weight: bold;
             transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
         }
         .btn:hover {
             background-color: #1d4ed8;
@@ -132,6 +135,38 @@
         .card h3 {
             margin-bottom: 15px;
             color: var(--primary-color);
+        }
+
+        /* Agendamento */
+        .booking-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-top: 5px solid var(--accent-color);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--accent-color);
         }
 
         /* FAQ */
@@ -199,8 +234,8 @@
             <a href="#" class="logo">Eduardo Motta</a>
             <ul class="nav-links">
                 <li><a href="#inicio">Início</a></li>
-                <li><a href="#recursos">Recursos</a></li>
                 <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#agendar">Agendar</a></li>
                 <li><a href="#depoimentos">Depoimentos</a></li>
             </ul>
             <a href="https://wa.me/5591982079997?text=Olá%20Eduardo,%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informações." target="_blank" class="contact-number">(91) 98207-9997</a>
@@ -211,7 +246,7 @@
         <div class="hero-container">
             <h1>Serviços técnicos confiáveis para você</h1>
             <p>Oferecemos suporte especializado com soluções eficientes que garantem tranquilidade e desempenho para seu dia a dia.</p>
-            <a href="https://wa.me/5591982079997?text=Olá%20Eduardo,%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20um%20serviço." target="_blank" class="btn">Fale Comigo no WhatsApp</a>
+            <a href="#agendar" class="btn">Agendar Atendimento</a>
         </div>
     </section>
 
@@ -255,6 +290,49 @@
         </div>
     </section>
 
+    <!-- SEÇÃO DE AGENDAMENTO -->
+    <section id="agendar">
+        <div class="container">
+            <h2 class="section-title">Faça o seu Agendamento</h2>
+            <div class="booking-form">
+                <form id="formAgendamento" onsubmit="enviarWhatsApp(event)">
+                    <div class="form-group">
+                        <label for="nome">Seu Nome:</label>
+                        <input type="text" id="nome" required placeholder="Digite seu nome completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="servico">Serviço Desejado:</label>
+                        <select id="servico" required>
+                            <option value="">Selecione um serviço...</option>
+                            <option value="Instalação Especializada">Instalação Especializada</option>
+                            <option value="Manutenção Preventiva">Manutenção Preventiva</option>
+                            <option value="Suporte Técnico Profissional">Suporte Técnico Profissional</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="data">Data:</label>
+                        <input type="date" id="data" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="horario">Horário:</label>
+                        <select id="horario" required>
+                            <option value="">Selecione o horário...</option>
+                            <option value="08:00">08:00</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Confirmar Agendamento via WhatsApp</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <section id="depoimentos">
         <div class="container">
             <h2 class="section-title">O que nossos clientes dizem</h2>
@@ -280,7 +358,7 @@
             </div>
             <div class="faq-item">
                 <h4>Como agendar uma visita técnica?</h4>
-                <p>Você pode agendar pelo nosso site ou entrando em contato direto por telefone ou WhatsApp.</p>
+                <p>Você pode agendar pelo nosso site preenchendo o formulário de agendamento acima ou entrando em contato direto por WhatsApp.</p>
             </div>
             <div class="faq-item">
                 <h4>O Eduardo oferece garantia nos serviços?</h4>
@@ -296,6 +374,26 @@
         </div>
         <p>&copy; 2026 Eduardo Motta - Todos os direitos reservados.</p>
     </footer>
+
+    <script>
+        function enviarWhatsApp(event) {
+            event.preventDefault();
+            
+            const nome = document.getElementById('nome').value;
+            const servico = document.getElementById('servico').value;
+            const data = document.getElementById('data').value;
+            const horario = document.getElementById('horario').value;
+
+            // Formata a data de AAAA-MM-DD para DD/MM/AAAA
+            const dataFormatada = data.split('-').reverse().join('/');
+
+            const texto = `Olá Eduardo! Gostaria de confirmar um agendamento:\n\n*Cliente:* ${nome}\n*Serviço:* ${servico}\n*Data:* ${dataFormatada}\n*Horário:* ${horario}`;
+            const numeroWhatsApp = "5591982079997";
+
+            const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(texto)}`;
+            window.open(url, '_blank');
+        }
+    </script>
 
 </body>
 </html>
